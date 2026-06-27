@@ -1,2 +1,3 @@
-# divisao-recursiva
+# Divisão Recursiva do Contorno
+
 Trabalho de Processamento Gráfico
