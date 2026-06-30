@@ -1,22 +1,27 @@
 close all; clear; clc;
 
-img = imread("banco/macaco.png");
-if size(img, 3) == 3 % se tiver 3 canais rgb,
-    img_gray = rgb2gray(img); % transforma em tons de cinza
+% Carregar imagens.
+img = imread("banco/brasil.jpg");
+
+% Se a imagem for RGB, transformar ela em imagem em níveis de cinza.
+if size(img, 3) == 3 
+    img_gray = rgb2gray(img); 
 else
     img_gray = img;
 end
 
 img_binaria = img_gray < 128; % binarizacao
 
-% extracao dos contornos
-% (transformacao da fronteira em uma sequencia de coordenadas)
-% - conectividade 8
-% - retorna um array com as sequencias de pixels na borda de cada objeto
-% - noholes ignora o contorno interno
+%{
+A função bwboundaries traça os contornos do objeto em uma imagem binária.
+- Usa conectividade 8 (todos os vertíces do pixel central).
+- Não considera contorno internos.
+%}  
 bordas = bwboundaries(img_binaria, 8, 'noholes'); 
 
-% seleciona o maior objeto, ou seja, o principal
+%{
+Loop para encontrar o objeto com maior quantidade de pixels na borda.
+%}
 maior_idx = 1;
 maior_tamanho = 0;
 for k = 1:length(bordas)
@@ -26,13 +31,22 @@ for k = 1:length(bordas)
     end
 end
 
+%{
+PointList é uma matriz no formato [X,Y] de todos os pontos do objeto com maior
+quantidade de pixels na borda.
+%}
 PointList = [bordas{maior_idx}(:, 2), bordas{maior_idx}(:, 1)];
 
+%{
+Utiliza o algoritmo Douglas Peucker para simplificar a borda do objeto com base
+no limiar.
+%} 
 result0 = DouglasPeucker(PointList, 0);
 result1 = DouglasPeucker(PointList, 10);
 result2 = DouglasPeucker(PointList, 50);
-% o limiar 50 preserva apenas os vertices mais significativos, gerando um poligono bem mais simples
+% O limiar 50 preserva apenas os vertices mais significativos, gerando um poligono bem mais simples
 
+% Apresentação dos resultados
 figure;
 
 subplot(2, 2, 1);
