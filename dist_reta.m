@@ -1,16 +1,16 @@
 function d = dist_reta(ponto, p1_reta, p2_reta)
 %{
-A funÁ„o `dist_reta` calcula a menor dist‚ncia (perpendicular) entre um ponto 
-geomÈtrico e uma reta definida por dois outros pontos. Caso os pontos da reta 
-sejam idÍnticos, calcula a dist‚ncia Euclidiana entre os dois pontos.
+A fun√ß√£o `dist_reta` calcula a menor dist√¢ncia (perpendicular) entre um ponto 
+geom√©trico e uma reta definida por dois outros pontos. Caso os pontos da reta 
+sejam id√™nticos, calcula a dist√¢ncia Euclidiana entre os dois pontos.
 
 Entrada:
   - ponto   : Vetor com as coordenadas [X, Y] do ponto.
   - p1_reta : Vetor com as coordenadas [X, Y] do ponto inicial da reta.
   - p2_reta : Vetor com as coordenadas [X, Y] do ponto final da reta.
 
-SaÌda:
-  - d       : Valor numÈrico (escalar) que representa a dist‚ncia calculada
+Sa√≠da:
+  - d       : Valor num√©rico (escalar) que representa a dist√¢ncia calculada
               (em pixels) entre o ponto e a reta.
 %}   
     x0 =   ponto(1); y0 = ponto(2);

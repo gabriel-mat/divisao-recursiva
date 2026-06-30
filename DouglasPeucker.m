@@ -1,25 +1,25 @@
 function ResultList = DouglasPeucker(PointList, limiar)
 %{
-A funÁ„o `Douglas Peucker` simplifica uma curva poligonal reduzindo a quantidade 
-de pontos da mesma, utilizando a estratÈgia de recurs„o. O algoritmo preserva
-as formas com base em uma toler‚ncia geomÈtrica.
+A fun√ß√£o `Douglas Peucker` simplifica uma curva poligonal reduzindo a quantidade 
+de pontos da mesma, utilizando a estrat√©gia de recurs√£o. O algoritmo preserva
+as formas com base em uma toler√¢ncia geom√©trica.
 
 Entrada:
   - PointList : Matriz contendo as coordenadas cartesianas [X, Y] de todos
                 os pontos originais do contorno da curva.
-  - limiar    : Valor numÈrico que define a dist‚ncia m·xima tolerada (em pixels) 
+  - limiar    : Valor num√©rico que define a dist√¢ncia m√°xima tolerada (em pixels) 
                 entre a curva original e a reta simplificada.
                 Limiares maiores geram curvas mais simplificadas (com menos pontos).
 
-SaÌda:
-  - ResultList: Matriz que contÈm as coordenadas [X, Y] dos ponto que foram mantidos 
-                apÛs a simplificaÁ„o.
+Sa√≠da:
+  - ResultList: Matriz que cont√©m as coordenadas [X, Y] dos ponto que foram mantidos 
+                ap√≥s a simplifica√ß√£o.
 %}  
   
   
 %{
 Se a lista recebida tiver menos de 3 pontos (ou seja, apenas 1 ou 2 pontos), 
-n„o h· o que simplificar. Uma reta j· È a forma mais simples possÌvel.
+n√£o h√° o que simplificar. Uma reta j√° √© a forma mais simples poss√≠vel.
 %}  
   if size(PointList, 1) < 3
     ResultList = PointList;
@@ -31,7 +31,7 @@ n„o h· o que simplificar. Uma reta j· È a forma mais simples possÌvel.
   final = size(PointList, 1);
   
 %{
-Achar o ponto intermedi·rio com maior dist‚ncia perpendicular em relaÁ„o ‡ 
+Achar o ponto intermedi√°rio com maior dist√¢ncia perpendicular em rela√ß√£o √† 
 reta formada pelo ponto inicial e final do segmento atual.
 %}    
   for i = 2 : final - 1
@@ -42,11 +42,11 @@ reta formada pelo ponto inicial e final do segmento atual.
     end
   end
 %{
-Se o dmax for maior que o limiar, ele n„o pode ser ignorado. O processo recursivo
-ser· aplicado dividindo o segmento em duas novas subcurvas a partir deste ponto 
-de maior dist‚ncia.
+Se o dmax for maior que o limiar, ele n√£o pode ser ignorado. O processo recursivo
+ser√° aplicado dividindo o segmento em duas novas subcurvas a partir deste ponto 
+de maior dist√¢ncia.
 
-Caso contr·rio, ignora-se todos os pontos intermedi·rios, mantendo apenas o ponto 
+Caso contr√°rio, ignora-se todos os pontos intermedi√°rios, mantendo apenas o ponto 
 inicial e final do segmento atual.
 %}
   if(dmax > limiar)
