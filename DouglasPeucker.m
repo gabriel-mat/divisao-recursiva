@@ -1,4 +1,4 @@
-function ResultList = DouglasPecker(PointList, limiar)
+function ResultList = DouglasPeucker(PointList, limiar)
   if size(PointList, 1) < 3
     ResultList = PointList;
     return;
@@ -17,8 +17,8 @@ function ResultList = DouglasPecker(PointList, limiar)
   end
 
   if(dmax > limiar)
-    recResults1 = DouglasPecker(PointList(1 : index, :), limiar);
-    recResults2 = DouglasPecker(PointList(index : final, :), limiar);
+    recResults1 = DouglasPeucker(PointList(1 : index, :), limiar);
+    recResults2 = DouglasPeucker(PointList(index : final, :), limiar);
     ResultList = [recResults1(1:end-1, :); recResults2];
   else
     ResultList = [PointList(1, :); PointList(final, :)];
