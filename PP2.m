@@ -1,3 +1,13 @@
+%{
+  PP2 - Processamento de imagens
+
+  André Alves Paula da Costa - 834681
+  Gabriel Matheus de Souza - 832254
+  Letícia Ramos Fernandes - 834748
+  Otávio Inácio de Oliveira - 831718
+
+%}
+
 close all; clear; clc;
 
 % Carrega imagens.
