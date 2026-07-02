@@ -11,21 +11,6 @@
 close all; clear; clc;
 
 function d = dist_reta(ponto, p1_reta, p2_reta)
-
-%{
-A função `dist_reta` calcula a menor distância (perpendicular) entre um ponto
-geométrico e uma reta definida por dois outros pontos. Caso os pontos da reta
-sejam idênticos, calcula a distância Euclidiana entre os dois pontos.
-
-Entrada:
-  - ponto   : Vetor com as coordenadas [X, Y] do ponto.
-  - p1_reta : Vetor com as coordenadas [X, Y] do ponto inicial da reta.
-  - p2_reta : Vetor com as coordenadas [X, Y] do ponto final da reta.
-
-Saída:
-  - d       : Valor numérico (escalar) que representa a distância calculada
-              (em pixels) entre o ponto e a reta.
-%}
     x0 =   ponto(1); y0 = ponto(2);
     x1 = p1_reta(1); y1 = p1_reta(2);
     x2 = p2_reta(1); y2 = p2_reta(2);
@@ -38,7 +23,6 @@ Saída:
         d = num / den;
     end
 end
-
 function ResultList = DouglasPeucker(PointList, limiar)
 %{
 A função `Douglas Peucker` simplifica uma curva poligonal reduzindo a quantidade
@@ -59,6 +43,7 @@ Saída:
 
 
 %{
+
 Se a lista recebida tiver menos de 3 pontos (ou seja, apenas 1 ou 2 pontos),
 não há o que simplificar. Uma reta já é a forma mais simples possível.
 %}
@@ -99,10 +84,8 @@ inicial e final do segmento atual.
   end
 end
 
-
-
 % Carrega imagens.
-img = imread("banco/rio_amazonas.jpg");
+img = imread("banco/batman.jpg");
 
 % Se a imagem for RGB, transforma em níveis de cinza.
 if size(img, 3) == 3
@@ -111,18 +94,18 @@ else
     img_gray = img;
 end
 
-% Opções de pré-processamento
+% Filtros opcionais
 
-%img_filtro = img_gray;
+img_filtro = img_gray;
 %img_filtro = medfilt2(img_gray); % Filtro Mediana
-img_filtro = imgaussfilt(img_gray, 1); % Suavização Gaussiana
-%img_filtro = imcomplement(img_binaria); % Inverte
-
+%img_filtro = histeq(img_gray); % Equalização do Histograma
+%img_filtro = imgaussfilt(img_gray, 1); % Suavização Gaussiana
 
 % Binarização
 
 img_binaria = imbinarize(img_filtro);
 %img_binaria = img_gray < 128;
+img_binaria = imcomplement(img_binaria); % Inverte
 
 figure
 subplot(2,2,1), imshow(img), title('Imagem original');
@@ -154,16 +137,17 @@ quantidade de pixels na borda.
 %}
 PointList = [bordas{maior_idx}(:, 2), bordas{maior_idx}(:, 1)];
 
+
 %{
 Utiliza o algoritmo Douglas Peucker para simplificar a borda do
 objeto com baseno limiar.
 Um limiar maior preserva apenas os vertices mais significativos,
-gerando um poligono bem mais simples.
+gerando um poligono mais simples.
 %}
 limiar0 = 0;
-limiar1 = 5;
-limiar2 = 15;
-limiar3 = 30;
+limiar1 = 10;
+limiar2 = 25;
+limiar3 = 50;
 
 result0 = DouglasPeucker(PointList, limiar0);
 result1 = DouglasPeucker(PointList, limiar1);
